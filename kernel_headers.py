@@ -340,14 +340,14 @@ def run_headers_install(verbose, gen_dir, headers_install, unifdef, prefix, h):
   (out_h_dirname, out_h_basename) = os.path.split(out_h)
   h_dirname = os.path.dirname(h)
 
-  cmd = [headers_install, out_h_dirname, h_dirname, out_h_basename]
+  cmd = ['sh', headers_install, out_h_dirname, h_dirname, out_h_basename]
 
   if verbose:
     print('run_headers_install: cmd is %s' % cmd)
 
   env = os.environ.copy()
   env["LOC_UNIFDEF"] = unifdef
-  result = subprocess.call(['sh', headers_install, out_h_dirname, h_dirname, out_h_basename], env=env)
+  result = subprocess.call(cmd, env=env)
 
   if result != 0:
     print('error: run_headers_install: cmd %s failed %d' % (cmd, result))
@@ -1002,8 +1002,7 @@ def main():
         args.verbose, args.header_arch, args.gen_dir, args.arch_asm_kbuild,
         args.asm_generic_kbuild, module_dir, args.old_gen_headers_bp, args.new_gen_headers_bp,
         args.version_makefile, args.arch_syscall_tool, args.arch_syscall_tbl,
-        args.headers_install, args.unifdef, args.include_uapi, args.arch_include_uapi,
-        args.techpack_include_uapi)
+        args.headers_install, args.unifdef, args.include_uapi, args.arch_include_uapi, techpack_include_uapi)
 
   print('error: unknown mode: %s' % args.mode)
   return 1

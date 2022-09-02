@@ -1239,9 +1239,7 @@ include/config/kernel.release: $(srctree)/Makefile FORCE
 # Carefully list dependencies so we do not try to build scripts twice
 # in parallel
 PHONY += scripts
-scripts: scripts_basic include/config/auto.conf include/config/tristate.conf \
-	 asm-generic
-	$(Q)$(MAKE) $(build)=$(@)
+scripts: scripts_basic asm-generic gcc-plugins $(autoksyms_h)
 
 # Things we need to do before we recursively start building the kernel
 # or the modules are listed in "prepare".
